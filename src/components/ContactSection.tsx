@@ -26,7 +26,8 @@ const ContactSection = () => {
     "Major Project",
   ];
 
-  const WHATSAPP_NUMBER = "919121795950"; // +91 9121795950
+
+  const WHATSAPP_NUMBER = "919949460075"; // +91 9949460075
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
