@@ -38,7 +38,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     <AnimatePresence>
       {!isExiting && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background overflow-hidden"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background overflow-hidden min-w-full w-full max-w-[100vw] min-h-[100dvh] h-[100dvh]"
           initial={{ y: "-100%" }}
           animate={{ y: 0 }}
           exit={{ y: "-100%" }}
@@ -76,19 +76,19 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/15 to-transparent translate-y-20" />
 
-          {/* Center content */}
-          <div className="relative flex flex-col items-center gap-8">
+          {/* Center content – padded for mobile, constrained width */}
+          <div className="relative flex flex-col items-center justify-center gap-6 sm:gap-8 px-4 sm:px-6 w-full max-w-[min(100%,320px)]">
             <motion.img
               src="/logo.png"
               alt="AIM"
-              className="h-24 md:h-32 w-auto max-w-[280px] object-contain drop-shadow-[0_0_32px_rgba(185,28,28,0.4)]"
+              className="h-20 w-auto max-w-[200px] sm:h-24 sm:max-w-[240px] md:h-32 md:max-w-[280px] object-contain drop-shadow-[0_0_32px_rgba(185,28,28,0.4)]"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             />
 
             <motion.p
-              className="text-sm md:text-base font-body tracking-[0.5em] uppercase text-muted-foreground"
+              className="text-xs sm:text-sm md:text-base font-body tracking-[0.3em] sm:tracking-[0.5em] uppercase text-muted-foreground text-center leading-tight max-w-[90vw]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -98,7 +98,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
             {/* Progress bar */}
             <motion.div
-              className="w-64 md:w-80 mt-4"
+              className="w-full max-w-[240px] sm:max-w-none sm:w-64 md:w-80 mt-2 sm:mt-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
@@ -116,11 +116,11 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
             </motion.div>
           </div>
 
-          {/* Corner decorations – subtler */}
-          <div className="absolute top-6 left-6 w-12 h-12 border-l-2 border-t-2 border-glow opacity-30" />
-          <div className="absolute top-6 right-6 w-12 h-12 border-r-2 border-t-2 border-glow opacity-30" />
-          <div className="absolute bottom-6 left-6 w-12 h-12 border-l-2 border-b-2 border-glow opacity-30" />
-          <div className="absolute bottom-6 right-6 w-12 h-12 border-r-2 border-b-2 border-glow opacity-30" />
+          {/* Corner decorations – subtler, smaller on mobile */}
+          <div className="absolute top-4 left-4 w-8 h-8 sm:top-6 sm:left-6 sm:w-12 sm:h-12 border-l-2 border-t-2 border-glow opacity-30" />
+          <div className="absolute top-4 right-4 w-8 h-8 sm:top-6 sm:right-6 sm:w-12 sm:h-12 border-r-2 border-t-2 border-glow opacity-30" />
+          <div className="absolute bottom-4 left-4 w-8 h-8 sm:bottom-6 sm:left-6 sm:w-12 sm:h-12 border-l-2 border-b-2 border-glow opacity-30" />
+          <div className="absolute bottom-4 right-4 w-8 h-8 sm:bottom-6 sm:right-6 sm:w-12 sm:h-12 border-r-2 border-b-2 border-glow opacity-30" />
         </motion.div>
       )}
     </AnimatePresence>

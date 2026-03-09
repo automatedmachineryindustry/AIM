@@ -26,30 +26,42 @@ const ContactSection = () => {
     "Major Project",
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const WHATSAPP_NUMBER = "919121795950"; // +91 9121795950
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (!supabase) {
-      setError("Contact form is not configured.");
-      return;
-    }
     setLoading(true);
-    try {
-      const { error: insertError } = await supabase.from("contacts").insert({
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        phone: formData.phone.trim(),
-        domain: formData.domain || null,
-        message: formData.message.trim(),
-      });
-      if (insertError) throw insertError;
-      setSubmitted(true);
-      setFormData({ name: "", email: "", phone: "", message: "", domain: "" });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to send message.");
-    } finally {
-      setLoading(false);
-    }
+
+    // Build message for WhatsApp
+    const lines = [
+      `*Name:* ${formData.name.trim()}`,
+      `*Email:* ${formData.email.trim()}`,
+      `*Phone:* ${formData.phone.trim() || "—"}`,
+      `*Domain:* ${formData.domain.trim() || "—"}`,
+      "",
+      `*Message:*\n${formData.message.trim()}`,
+    ];
+    const text = lines.join("\n");
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+
+    // Open WhatsApp (Supabase code kept below but not used for now)
+    window.open(url, "_blank", "noopener,noreferrer");
+
+    setSubmitted(true);
+    setFormData({ name: "", email: "", phone: "", message: "", domain: "" });
+    setLoading(false);
+
+    // --- Supabase (kept for later use, not used for now) ---
+    // if (supabase) {
+    //   supabase.from("contacts").insert({
+    //     name: formData.name.trim(),
+    //     email: formData.email.trim(),
+    //     phone: formData.phone.trim(),
+    //     domain: formData.domain || null,
+    //     message: formData.message.trim(),
+    //   }).then(({ error: insertError }) => { if (insertError) setError(insertError.message); });
+    // }
   };
 
   const inputClass =
