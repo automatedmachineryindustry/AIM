@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 92%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 92%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 92%;
+
+    --primary: 0 72% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 85%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 0 65% 40%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 0 72% 51%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens – red and black theme */
+    --glow-primary: 0 72% 51%;
+    --glow-accent: 0 65% 40%;
+    --glow-warm: 45 100% 60%;
+    --surface-glass: 0 0% 8%;
+
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 0 72% 51%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 0 0% 85%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 0 72% 51%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Typography: improved line-height and letter-spacing */
+  h1 {
+    @apply leading-[1.1] tracking-tight;
+  }
+  h2 {
+    @apply leading-[1.15] tracking-tight;
+  }
+  h3 {
+    @apply leading-snug tracking-tight;
+  }
+  p {
+    @apply leading-[1.7];
+  }
+}
+
+@layer utilities {
+  /* Softer glows – do not overpower UI */
+  .text-glow {
+    text-shadow: 0 0 24px hsl(var(--glow-primary) / 0.35), 0 0 48px hsl(var(--glow-primary) / 0.15);
+  }
+
+  .text-glow-accent {
+    text-shadow: 0 0 24px hsl(var(--glow-accent) / 0.35), 0 0 48px hsl(var(--glow-accent) / 0.15);
+  }
+
+  .box-glow {
+    box-shadow: 0 0 20px hsl(var(--glow-primary) / 0.18), 0 0 40px hsl(var(--glow-primary) / 0.06);
+  }
+
+  .box-glow-hover {
+    box-shadow: 0 0 24px hsl(var(--glow-primary) / 0.25), 0 0 48px hsl(var(--glow-primary) / 0.08);
+  }
+
+  .box-glow-accent {
+    box-shadow: 0 0 20px hsl(var(--glow-accent) / 0.18), 0 0 40px hsl(var(--glow-accent) / 0.06);
+  }
+
+  .border-glow {
+    border-color: hsl(var(--glow-primary) / 0.25);
+  }
+
+  /* Premium glass panels: blur, soft border, subtle inner highlight */
+  .glass {
+    @apply border border-white/[0.06] backdrop-blur-xl;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--card) / 0.72) 0%,
+      hsl(var(--card) / 0.55) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.04),
+      0 1px 2px hsl(0 0% 0% / 0.2);
+  }
+
+  /* Slightly stronger glass for cards that need more depth */
+  .glass-card {
+    @apply border border-white/[0.07] backdrop-blur-xl;
+    background: linear-gradient(
+      145deg,
+      hsl(var(--card) / 0.78) 0%,
+      hsl(var(--card) / 0.58) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.05),
+      0 4px 24px hsl(0 0% 0% / 0.25);
+  }
+
+  /* Smoother, more subtle gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      105deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--accent) / 0.9) 45%,
+      hsl(var(--primary) / 0.95) 100%
+    );
+    background-size: 200% auto;
+  }
+
+  /* Refined grid – subtle and elegant */
+  .grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.18) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.18) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .scanline {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      hsl(var(--glow-primary) / 0.02) 50%,
+      transparent 100%
+    );
+    animation: scanline 4s linear infinite;
+  }
+
+  /* Button: primary – subtle glow, smooth gradient, clear hover */
+  .btn-primary {
+    @apply font-body tracking-wider uppercase text-sm px-8 py-3.5 rounded-sm transition-all duration-300 flex items-center justify-center gap-2 min-h-[48px];
+    background: linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(0 72% 45%) 100%);
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 0 20px hsl(var(--glow-primary) / 0.2), 0 0 40px hsl(var(--glow-primary) / 0.06);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(180deg, hsl(0 72% 55%) 0%, hsl(0 72% 47%) 100%);
+    box-shadow: 0 0 24px hsl(var(--glow-primary) / 0.28), 0 0 48px hsl(var(--glow-primary) / 0.1);
+  }
+
+  /* Button: outline – thin border, elegant hover glow */
+  .btn-outline {
+    @apply font-body tracking-wider uppercase text-sm px-8 py-3.5 rounded-sm transition-all duration-300 flex items-center justify-center gap-2 min-h-[48px] border border-border text-foreground;
+  }
+  .btn-outline:hover {
+    @apply border-primary/50 text-primary;
+    box-shadow: 0 0 20px hsl(var(--glow-primary) / 0.12);
+  }
+
+  /* Card hover highlight – subtle */
+  .card-hover {
+    @apply transition-all duration-500;
+  }
+  .card-hover:hover {
+    box-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.06), 0 0 0 1px hsl(var(--glow-primary) / 0.12);
+  }
+
+  /* Cursor glow container – used by CursorGlow component */
+  .cursor-glow {
+    pointer-events: none;
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      hsl(var(--glow-primary) / 0.08) 0%,
+      hsl(var(--glow-primary) / 0.02) 40%,
+      transparent 70%
+    );
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
